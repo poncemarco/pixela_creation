@@ -1,0 +1,60 @@
+import requests
+import datetime as dt
+
+pixela_endpoint = 'https://pixe.la/v1/users'
+USER = '######'
+TOKEN = '##########'
+GRAPHID = 'graph1'
+
+user_params = {
+    'token': TOKEN,
+    'username': USER,
+    'agreeTermsOfService': 'yes',
+    'notMinor': 'yes',
+}
+
+#  response = requests.post(url=pixela_end_point, json= user_params)
+# print(response.text)
+
+graph_endpoint = f"{pixela_endpoint}/{USER}/graphs"
+
+
+graph_config = {
+    'id': GRAPHID,
+    'name': 'Cycling Graph',
+    'unit': 'Km',
+    'type': 'float',
+    'color': 'momiji'
+}
+
+headers = {
+    'X-USER-TOKEN': TOKEN
+}
+
+# Create a graph with the correct params
+
+# response = requests.post(url=graph_endpoint, json=graph_config, headers=headers)
+# print(response.text)
+
+# post information on our post
+
+post_endpoint = f'{pixela_endpoint}/{USER}/graphs/{GRAPHID}'
+
+today = dt.datetime.today()
+
+
+pixel_data = {
+    'date': today.strftime('%Y%m%d'),  # the format is yyyyMMdd
+    'quantity' : '17.5'
+}
+
+#response = requests.post(url=post_endpoint, json=pixel_data, headers=headers)
+#print(response.text)
+
+# delete passed data :
+
+delate_endpoint = f"{pixela_endpoint}/{USER}/graphs/{GRAPHID}/20220330"
+
+
+delate_response = requests.delete(url=change_endpoint, headers=headers)
+print(delate_response.text)
